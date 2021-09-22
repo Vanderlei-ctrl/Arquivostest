@@ -56,7 +56,6 @@ read ip
 ifconfig
 ip -a
 addrshow
-done
 }
 
 
