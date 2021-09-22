@@ -1,1 +1,61 @@
 #!/bin/bash
+#
+#Configurações e atualizações automáticas do Ubuntu 16.04 Lts.
+#Aulas Sobre o Linux Principalmente o Ubuntu.
+
+Principal(){
+echo "Exemplo Final de Script Shell"
+echo "----------------------"
+echo "Opções."
+echo ""
+echo "1. Transformar nomes de arquivos"
+echo "2. Adicionar um Usuário no Sistema"
+echo "3. Deletar um Usuário no Sistema"
+echo "4. Fazer backup dos arquivos do /etc"
+echo "5. Sair do exemplo"
+echo ""
+echo -n "Qual a opção deseja?"
+read opcao
+case $opcao in
+ 1). Atualizar;;
+ 2). Adicionar;;
+ 3). Deletar;;
+ 4). Ip;;
+ 5). exit;;
+ *). "Opção desconhecida."; echo; Principal;;
+ esac
+}
+
+Atualizar(){
+clear
+echo -n "Atualizando os repositórios do ubuntu!"
+apt-get update
+apt-get upgrade -y
+}
+
+Adicionar(){
+clear
+echo -n "Qual o nome do usuário deseja adicionar?"
+read nome
+adduser nome
+Principal
+}
+
+Deletar(){
+clear
+echo "Qual o nome do usuário deseja deletar?"
+read nome
+userdel nome
+Principal
+}
+
+Backup(){
+clear
+echo "Procurar meu ip interno"
+read ip
+ifconfig
+ip -a
+addrshow
+Principal
+}
+
