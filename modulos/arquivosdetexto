@@ -56,6 +56,9 @@ read ip
 ifconfig
 ip -a
 addrshow
-Principal
+done
 }
+
+
+Principal
 
