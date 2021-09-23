@@ -1,63 +1,73 @@
 #!/bin/bash
 #
-#Configurações e atualizações automáticas do Ubuntu 16.04 Lts.
-#Aulas Sobre o Linux Principalmente o Ubuntu.
+# Exemplos de uso da estrutura condicional case 
+# para gerar um menu de opções em Shell Script
 
-Principal(){
-echo "Exemplo Final de Script Shell"
+MENU="
+[01]. Criar usuário          [06]. Atualizar repositóri
+[02]. Criar senha            [07]. Instalar atualizações
+[03]. Deletar usuário        [08]. Instalar openssh-server
+[04]. Criar arquivo          [09]. Instalar squid e squid3
+[05]. Criar pasta            [10]. Instalar sockes
+"
+echo "$MENU"
 echo "----------------------"
-echo "Opções."
-echo ""
-echo "1. Transformar nomes de arquivos"
-echo "2. Adicionar um Usuário no Sistema"
-echo "3. Deletar um Usuário no Sistema"
-echo "4. Fazer backup dos arquivos do /etc"
-echo "5. Sair do exemplo"
-echo ""
-echo -n "Qual a opção deseja?"
-read opcao
-case $opcao in
- 1). Atualizar;;
- 2). Adicionar;;
- 3). Deletar;;
- 4). Ip;;
- 5). exit;;
- *). "Opção desconhecida."; echo; Principal;;
- esac
-}
+read -p "Escolha uma opção do menu: " OPCAO
+case "$OPCAO" in
+        1)
+            echo "Criando usuário..."
+            read username
+            $username 
+        ;;
 
-Atualizar(){
-clear
-echo -n "Atualizando os repositórios do ubuntu!"
-apt-get update
-apt-get upgrade -y
-}
+        2) 
+            echo "Criando senha..."
+            read password
+            $password
+        ;;
 
-Adicionar(){
-clear
-echo -n "Qual o nome do usuário deseja adicionar?"
-read nome
-adduser nome
-Principal
-}
+        3)
+            echo "Deletando usuário..."
+            read username
+            $username
 
-Deletar(){
-clear
-echo "Qual o nome do usuário deseja deletar?"
-read nome
-userdel nome
-Principal
-}
+        ;;
 
-Backup(){
-clear
-echo "Procurar meu ip interno"
-read ip
-ifconfig
-ip -a
-addrshow
-}
+        4)
+            echo "Criando arquivo..."
+            touch script3.txt
+        ;;
 
+        5)
+            echo "Criando pasta..."
+            mkdir pasta_de_Vanderlei
+        ;;
 
-Principal
+        6)
+            echo "Atualizando repositório no ubuntu..."
+            apt-get update
+        ;;
 
+        7)
+            echo "Instalando atualizações"
+            apt-get upgrade -y
+            clear
+        ;;
+
+        8) 
+            echo "Instalando  Openssh-server"
+            apt-get install openssh-server
+            service ssh restart
+        ;;
+
+        9)  
+            echo "Instalando squid3 e squid" 
+            apt-get install squid3
+        ;;
+
+        10)
+            echo "Instalando sockes"
+        ;;
+
+        *)  echo "Opção $OPCAO inválida!"
+        exit 1
