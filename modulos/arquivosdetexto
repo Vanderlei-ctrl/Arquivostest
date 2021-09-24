@@ -1,73 +1,33 @@
 #!/bin/bash
-#
-# Exemplos de uso da estrutura condicional case 
-# para gerar um menu de opções em Shell Script
+# Menu Shell
 
-MENU="
-[01]. Criar usuário          [06]. Atualizar repositóri
-[02]. Criar senha            [07]. Instalar atualizações
-[03]. Deletar usuário        [08]. Instalar openssh-server
-[04]. Criar arquivo          [09]. Instalar squid e squid3
-[05]. Criar pasta            [10]. Instalar sockes
-"
-echo "$MENU"
-echo "----------------------"
-read -p "Escolha uma opção do menu: " OPCAO
-case "$OPCAO" in
-        1)
-            echo "Criando usuário..."
-            read username
-            $username 
-        ;;
+menu ()
+{
+a="ok"
 
-        2) 
-            echo "Criando senha..."
-            read password
-            $password
-        ;;
+while true $a !="ok"
+do
+   echo "MENU PRINCIPAL"
+   echo ""
+   echo "1 - Executar comando1"
+   echo "2 - Executar comando2"
+   echo "3 - Executar comando3"
+   echo "4 - Finalizar e Carregar as Alterações"
+   echo ""
+   echo "OBS. pressione 'ctrl+c' p/ sair sem reiniciar o Linux"
+   echo ""
+   echo "Digite a opção desejada: "
+   read a
+   case $a in
+   4) clear; echo "FINALIZADO O SCRIPT REINICIANDO O SERVIDOR";
+sleep 2; reboot;
+sleep 2; clear; break;;
+   1)apt-get update;;
+   2)apt-get upgrade -y;;
+   3)apt-get install openssh-server;;
+   4)reboot;;
+   esac
+done
+}
 
-        3)
-            echo "Deletando usuário..."
-            read username
-            $username
-
-        ;;
-
-        4)
-            echo "Criando arquivo..."
-            touch script3.txt
-        ;;
-
-        5)
-            echo "Criando pasta..."
-            mkdir pasta_de_Vanderlei
-        ;;
-
-        6)
-            echo "Atualizando repositório no ubuntu..."
-            apt-get update
-        ;;
-
-        7)
-            echo "Instalando atualizações"
-            apt-get upgrade -y
-            clear
-        ;;
-
-        8) 
-            echo "Instalando  Openssh-server"
-            apt-get install openssh-server
-            service ssh restart
-        ;;
-
-        9)  
-            echo "Instalando squid3 e squid" 
-            apt-get install squid3
-        ;;
-
-        10)
-            echo "Instalando sockes"
-        ;;
-
-        *)  echo "Opção $OPCAO inválida!"
-        exit 1
+menu
