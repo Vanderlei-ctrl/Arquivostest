@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 # Menu Shell
 
 menu ()
@@ -12,7 +12,7 @@ do
    echo "1 - Atualizar repositório:"
    echo "2 - Instalar atualizações:"
    echo "3 - Instalar Openssh:"
-   echo "4 - Consutar meu ip interno:"
+   echo "4 - Reiniciar Sistema:"
    echo ""
    echo "OBS. pressione 'ctrl+c' p/ sair sem reiniciar o Linux"
    echo ""
@@ -24,8 +24,8 @@ sleep 2; reboot;
 sleep 2; clear; break;;
    1)apt-get update;;
    2)apt-get upgrade -y;;
-   3)apt-get install openssh-server -y;;
-   4)ifconfig;;
+   3)apt-get install openssh-server -y  && service ssh restart;;
+   4)reboot;;
    esac
 done
 }
