@@ -7,20 +7,12 @@ a="ok"
 
 while true $a !="ok"
 do
-echo "MENU PRINCIPAL"
-echo "# interfaces(5) file used by ifup(8) and ifdown(8)" >> /etc/network/interfaces
-echo "auto ens33" >> /etc/network/interfaces
-echo "iface ens33 inet static" >> /etc/network/interfaces
-echo "address 192.168.1.107" >> /etc/network/interfaces
-echo "netmask 255.255.255.0" >> /etc/network/interfaces
-echo "gateway 192.168.1.1" >> /etc/network/interfaces
-dns-nameservers 192.168.1.1" >> /etc/network/interfaces
+   echo "MENU PRINCIPAL"
    echo ""
-   echo "1 - Atualizar repositório"
-   echo "2 - Instalar atualizações"
-   echo "3 - Instalar Openssh"
-   echo "4 - Instalar squid3"
-   echo "5 - Reiniciar Sistema"
+   echo "1 - Atualizar repositório:"
+   echo "2 - Instalar atualizações:"
+   echo "3 - Instalar Openssh:"
+   echo "4 - Consutar meu ip interno:"
    echo ""
    echo "OBS. pressione 'ctrl+c' p/ sair sem reiniciar o Linux"
    echo ""
@@ -33,8 +25,7 @@ sleep 2; clear; break;;
    1)apt-get update;;
    2)apt-get upgrade -y;;
    3)apt-get install openssh-server -y;;
-   4)apt-get install squid3 -y;;
-   5)reboot;;
+   4)ifconfig;;
    esac
 done
 }
