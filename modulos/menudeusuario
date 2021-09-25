@@ -1,0 +1,247 @@
+  #!/bin/bash
+
+#Funcao cadastrar usuario
+caduser(){
+clear
+echo "Informe o nome do usuario"
+read usuario
+useradd $usuario 2> /dev/null
+if [ $? -eq 0 ];then
+echo -n "Usuario cadastrado com sucesso!"
+sleep 2
+else
+echo "Falha ao cadastrar usuario"
+sleep 2
+fi
+}
+
+#Funcao cadastrar grupo
+cadgroup(){
+clear
+echo "Informe o nome do grupo"
+read grupo
+groupadd $grupo 2> /dev/null
+if [ $? -eq 0 ];then
+echo "Grupo cadastrado com sucesso!"
+sleep 2
+else
+echo "Falha ao cadastrar grupo"
+sleep 2
+fi
+}
+
+#Funcao adicionar usuario a um grupo
+addusergroup(){
+clear
+echo "Informe um usuario, digite conforme lista abaixo: "
+cut -d : -f 1 /etc/passwd
+echo ""
+echo "Usuario: "
+read usuario
+echo ""
+cut -d : -f 1 /etc/group
+echo "Informe um dos grupos listados acima: "
+read grupo
+echo ""
+gpasswd -a $usuario $grupo 2> /dev/null
+if [ $? -eq 0 ];then
+echo "Usuario $user cadastrado no grupo $grupo com sucesso!"
+sleep 2
+else
+echo "Falha ao cadastrar $user ao grupo $grupo"
+sleep 2
+fi
+}
+
+#Funcao alterar senha do usuario
+alterarsenha(){
+clear
+echo "Informe um usuario, digite conforme lista abaixo: "
+cut -d : -f 1 /etc/passwd
+echo ""
+echo "Usuario: "
+read usuario
+echo ""
+echo "Informe a senha:"
+read senha
+echo $usuario:$senha | chpasswd 2> /dev/null
+if [ $? -eq 0 ];then
+echo "Senha alterada com sucesso!"
+sleep 2
+else
+echo "Falha ao alterar senha"
+sleep 2
+fi
+}
+
+#Funcao criar pasta
+criarpasta(){
+clear
+echo "Informe o nome da pasta: "
+read pasta
+echo "Informe o caminho da pasta: "
+read caminho_pasta
+mkdir -p "$caminho_pasta/$pasta"
+if [ $? -eq 0 ];then
+echo "$caminho_pasta/$pasta criada com sucesso!"
+sleep 2
+else
+echo "Falha ao criar pasta"
+sleep 2
+fi
+}
+
+#Funcao alterar dono da pasta
+
+alterardonopasta (){
+clear
+echo "Informe o nome da pasta (caminho completo): "
+read nome_pasta
+echo ""
+echo "Informe um usuario, digite conforme lista abaixo: "
+cut -d : -f 1 /etc/passwd
+echo ""
+echo "Usuario: "
+read usuario
+echo ""
+cut -d : -f 1 /etc/group
+echo "Informe um dos grupos listados acima: "
+read grupo
+echo ""
+chown $usuario:$grupo $nome_pasta
+if [ $? -eq 0 ];then
+echo "Dono da pasta $nome_pasta alterada com sucesso!"
+sleep 2
+else
+echo "Falha ao alterar dono da pasta $nome_pasta"
+sleep 2
+fi
+}
+
+
+alterarpermpasta(){
+
+clear
+echo -n "
+
+a) Adicionar permissao na pasta
+b) Remover permissao na pasta
+"
+read r1
+
+echo -n "
+
+a) Read
+b) Read e Write
+c) Read e Execute
+d) Read Write e Execute
+"
+read r2
+
+echo -n "
+Digite o caminho completo da Pasta
+"
+read r3
+
+case $r1 in
+
+a) if [ $r2 == "a" ]; then
+
+        chmod ugo+r $r3
+
+   elif [ $r2 == "b" ]; then
+
+        chmod ugo+rw $r3
+
+   elif [ $r2 == "c" ]; then
+
+        chmod ugo+rx $r3
+
+   elif [ $r2 == "d" ]; then
+
+        chmod ugo+rwx $r3
+
+   else
+
+        echo "Opcao invalida"
+        exit 1
+
+   fi
+;;
+
+b) if [ $r2 == "a" ]; then
+
+        chmod ugo-r $r3
+
+   elif [ $r2 == "b" ]; then
+
+        chmod ugo-rw  $r3
+
+   elif [ $r2 == "c" ]; then
+
+        chmod ugo-rx $r3
+
+   elif [ $r2 == "d" ]; then
+
+        chmod ugo-rwx $r3
+
+   else
+
+        echo "Opcao invalida"
+        exit 1
+
+   fi
+
+;;
+
+*)
+
+        echo -e "\n\nDigite somente a) ou b) \n\n"
+        exit 1
+
+
+;;
+
+esac
+
+}
+
+
+sair(){
+clear
+exit
+}
+
+while : ; do
+
+clear
+
+echo -n "
+---------------ADMINISTRACAO DE USUARIOS------------------
+
+
+1 - Cadastrar usuario
+2 - Cadastrar grupo
+3 - Adicionar usuario a um grupo
+4 - Alterar senha do usuario
+5 - Criar pasta
+6 - Alterar dono de uma pasta
+7 - Alterar permissao da pasta
+8 - Sair
+
+
+Escolha uma das opcoes: "
+read opcao
+case "$opcao" in
+1) caduser ;;
+2) cadgroup ;;
+3) addusergroup ;;
+4) alterarsenha ;;
+5) criarpasta ;;
+6) alterardonopasta ;;
+7) alterarpermpasta ;;
+8) sair
+
+esac
+
+done
