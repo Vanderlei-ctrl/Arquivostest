@@ -1,0 +1,90 @@
+#!/bin/bash
+#Testando variáveis
+
+
+x="teste"
+
+menu ()
+{
+while true $x != "teste"
+do
+clear
+echo "========================================"
+echo "Mini script"
+echo""
+echo "Criado por: Vanderlei"
+echo""
+echo "1)Instalar um programa"
+echo""
+echo "2)Remover um programa"
+echo""
+echo "3)Atualizar o sistema"
+echo""
+echo "4)Instalar dependência"
+echo""
+echo "5)Limpando programas defeituosos"
+echo""
+echo "6)Corrir erros"
+echo""
+echo "7)Sair do Programa"
+echo""
+echo "====================================="
+
+echo "Digite a opção desejada:"
+read x
+echo "Opção informada ($x)"
+echo "====================================="
+
+case "$x" in
+   1)
+     echo "Informe o nome do pacote para ser instalado"
+     read nome
+     apt-get install $nome
+     sleep 5
+echo "======================================"
+;;
+   2)
+     echo "Informe o nome do pacote para ser removido"
+     read nome
+     apt-get remove  --purge $nome
+     sleep 5
+echo "======================================"
+;;
+   3)
+     echo "Atualizando sistema..."
+     apt-get update
+     sleep 5
+echo "======================================"
+;;
+   4)
+     echo "Iniciando o processo"
+     apt-get -f install
+     sleep 5
+echo "======================================"
+;;
+   5)
+     echo "Corrigindo erros..."
+     apt-get autoremove
+     sleep 5
+echo "======================================"
+;;
+   6)
+     echo "Reparando erros"
+     dpkg --configure -a
+     sleep 5
+echo "======================================"
+;;
+   7)
+      echo "Saindo..."
+      sleep 5
+      clear;
+      exit;
+echo "======================================"
+;;
+   *)
+      echo "Opção inválida!"
+esac
+
+done
+}
+menu
