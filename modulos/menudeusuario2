@@ -14,9 +14,9 @@ echo "Mini script"
 echo""
 echo "Criado por: Vanderlei"
 echo""
-echo "1)Instalar um programa"
+echo "1)Instalar um pacote"
 echo""
-echo "2)Remover um programa"
+echo "2)Remover um pacote"
 echo""
 echo "3)Atualizar o sistema"
 echo""
@@ -24,65 +24,108 @@ echo "4)Instalar dependência"
 echo""
 echo "5)Limpando programas defeituosos"
 echo""
-echo "6)Corrir erros"
+echo "6)Corrigir erros"
 echo""
 echo "7)Sair do Programa"
 echo""
+echo "8)Criar diretório"
+echo""
+echo "9)Instalar Atualizações"
+echo""
+echo "10)Reiniciar sistema"
+echo""
+echo "11)Listar Diretório atual"
+echo""
 echo "====================================="
-
 echo "Digite a opção desejada:"
 read x
 echo "Opção informada ($x)"
 echo "====================================="
 
 case "$x" in
-   1)
+   1|01)
      echo "Informe o nome do pacote para ser instalado"
      read nome
-     apt-get install $nome
-     sleep 5
+     apt-get install $nome #Essa variável serve para escolher a opção desejada.
+     echo""
+     sleep 5;
+     echo "Pacote instalado com sucesso!"
 echo "======================================"
 ;;
-   2)
+   2|02)
      echo "Informe o nome do pacote para ser removido"
      read nome
      apt-get remove  --purge $nome
-     sleep 5
+     echo""
+     sleep 5;
+     echo "Pacote Removido  com Sucesso!"
 echo "======================================"
 ;;
-   3)
+   3|03)
      echo "Atualizando sistema..."
      apt-get update
-     sleep 5
+     sleep 5;
+     echo""
+     echo "Sistema atualizado com Sucesso!"
 echo "======================================"
 ;;
-   4)
+   4|04)
      echo "Iniciando o processo"
      apt-get -f install
      sleep 5
 echo "======================================"
 ;;
-   5)
+   5|05)
      echo "Corrigindo erros..."
      apt-get autoremove
      sleep 5
 echo "======================================"
 ;;
-   6)
+   6|06)
      echo "Reparando erros"
      dpkg --configure -a
      sleep 5
 echo "======================================"
 ;;
-   7)
+   7|07)
       echo "Saindo..."
       sleep 5
       clear;
       exit;
 echo "======================================"
 ;;
+   8|08)
+      echo "Digite o novo diretório local..."
+      read diretorio
+      mkdir $diretorio
+      sleep 5;
+      echo "Diretório Criado com sucesso!"
+echo "======================================"
+;;
+   9|09)
+      echo "Instale as atualizações do Sistema"
+      apt-get upgrade $instalacao
+      sleep 5;
+      echo "Instalação concluída com sucesso!"
+echo "======================================"
+;;
+   10)
+      echo "Reiniciando o sistema..."
+      reboot
+      sleep 5;
+echo "======================================"
+;;
+   11)
+      echo "Listando diretório atual..."
+      vdir $listardiretorio
+      echo""
+      sleep 5;
+      echo "Essa é lista do  diretório atual"
+echo "======================================"
+;;
    *)
-      echo "Opção inválida!";;
+      echo -e "\n\033[1;31mOpção inválida!"
+;;
 esac
 exit 0
 done
